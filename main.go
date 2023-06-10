@@ -5,20 +5,43 @@ import (
 	"log"
 
 	"github.com/samply/golang-fhir-models/fhir-models/fhir"
+	"github.com/xeipuuv/gojsonschema"
 )
 
 // あえて分かりやすくするため１つのメソッドに手続き的に書いてあるので、本当に実装したい場合は保守性の高いモジュール化されたコード書くこと
 // 参考
 // https://github.com/samply/golang-fhir-models
 func main() {
-	// 診療情報提供書のHL7 FHIRのサンプルデータを読み込み
-	// Bundle-BundleReferralExample01.json
+	// 診療情報提供書のHL7 FHIRのサンプルデータBundle-BundleReferralExample01.jsonを読み込み
 	fileData, err := ioutil.ReadFile("Bundle-BundleReferralExample01.json")
 	if err != nil {
 		log.Fatal(err) //終了
 	}
+	// HL7 FHIRのJSONスキーマfhir.schema.json
+	schemaData, err := ioutil.ReadFile("fhir.schema.json")
+	if err != nil {
+		log.Fatal(err) //終了
+	}
+
+	// サンプルデータのJSONスキーマ検証
+	schemaLoader := gojsonschema.NewBytesLoader(schemaData)
+	// 診療情報提供書のHL7 FHIRのサンプルデータBundle-BundleReferralExample01.json
+	docummentLoader := gojsonschema.NewBytesLoader(fileData)
+	result, err := gojsonschema.Validate(schemaLoader, docummentLoader)
+	if err != nil {
+		log.Fatal(err)
+	}
+	if result.Valid() {
+		log.Println("JSON Schema Check: ドキュメントは有効です")
+	} else {
+		//検証エラー
+		log.Println("JSON Schema Check: ドキュメントに不備があります")
+		for _, desc := range result.Errors() {
+			log.Printf("- %s\n", desc)
+		}
+	}
+
 	// BundleリソースのJSONパース
-	//err = json.Unmarshal(fileData, &bundle)
 	bundle, err := fhir.UnmarshalBundle(fileData)
 	if err != nil {
 		log.Fatal(err) //終了
