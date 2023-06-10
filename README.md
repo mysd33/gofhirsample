@@ -7,7 +7,7 @@
     - [gojsonschema](https://github.com/xeipuuv/gojsonschema)のライブラリを使って、JSONスキーマの検証
 - 【未実施】JPCoreプロファイル、文書プロファイルでの検証
     - [JPCoreプロファイル](https://jpfhir.jp/fhir/core/)のサイトにJPCoreプロファイルの構造定義ファイルがあります。
-    - また、[https://std.jpfhir.jp/](https://std.jpfhir.jp/)のサイトに[診療情報提供書の文書プロファイル（IGpackage2023.4.27 snapshot形式: jp-ereferral-0.9.6-snap.tgz）](https://jpfhir.jp/fhir/eReferral/jp-ereferral-0.9.7-snap.tgz)があります。
+    - また、[https://std.jpfhir.jp/](https://std.jpfhir.jp/)のサイトに、JPCoreを含むスナップショット形式の[診療情報提供書の文書プロファイル（IGpackage2023.4.27 snapshot形式: jp-ereferral-0.9.6-snap.tgz）](https://jpfhir.jp/fhir/eReferral/jp-ereferral-0.9.7-snap.tgz)があります。 
     - ですが、いずれも、FHIRプロファイルのようにJSONスキーマ形式では提供されていないようで、Goの場合、JPCoreプロファイルの検証を実施するのが難しそうです。
 - FHIRデータのパース
     - [Golang FHIR Models](https://github.com/samply/golang-fhir-models)を使って、パースをしています。
