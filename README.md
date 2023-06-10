@@ -25,14 +25,14 @@ example.exe
 ```sh
 >example.exe
 # JSONスキーマチェック結果
-2023/06/10 15:27:34 JSON Schema Check: ドキュメントは有効です
+2023/06/10 23:16:52 JSON Schema Check: ドキュメントは有効です
 # テストデータのパース結果
-2023/06/10 15:27:34 Bundle type: Document
-2023/06/10 15:27:34 文書名: 診療情報提供書
-2023/06/10 15:27:34 subject display: 患者リソースPatient
-2023/06/10 15:27:34 subject reference Id: urn:uuid:0a48a4bf-0d87-4efb-aafd-d45e0842a4dd
-2023/06/10 15:27:34 subject reference type: Patient
-2023/06/10 15:27:34 患者番号: 12345
-2023/06/10 15:27:34 患者氏名: 田中　太郎
-2023/06/10 15:27:34 患者カナ氏名: タナカ　タロウ
+2023/06/10 23:16:52 Bundle type: Document
+2023/06/10 23:16:52 文書名: 診療情報提供書
+2023/06/10 23:16:52 subject display: 患者リソースPatient
+2023/06/10 23:16:52 subject reference Id: urn:uuid:0a48a4bf-0d87-4efb-aafd-d45e0842a4dd
+2023/06/10 23:16:52 subject reference type: Patient
+2023/06/10 23:16:52 患者番号: 12345
+2023/06/10 23:16:52 患者氏名: 田中 太郎
+2023/06/10 23:16:52 患者カナ氏名: タナカ タロウ
 ```
