@@ -5,8 +5,10 @@
     - Goでは、JavaのHAPI等と違い、FHIRの構造定義ファイルでの検証を行うライブラリがなさそうです。
     - そこで、[HL7 FHIR v4.0.1:R4のダウンロードページ](https://hl7.org/fhir/R4/downloads.html)に[JSON Schema形式のファイル](https://hl7.org/fhir/R4/fhir.schema.json.zip)が提供されています。        
     - [gojsonschema](https://github.com/xeipuuv/gojsonschema)のライブラリを使って、JSONスキーマの検証
-- 【未実施】JPCoreプロファイルでの検証
-    - [JPCoreプロファイル](https://jpfhir.jp/fhir/core/)のサイトにJPCoreプロファイルの構造定義ファイルがありますが、FHIRプロファイルのようにJSONスキーマ形式では提供されていないようで、Goの場合、JPCoreプロファイルの検証を実施するのが難しそうです。
+- 【未実施】JPCoreプロファイル、文書プロファイルでの検証
+    - [JPCoreプロファイル](https://jpfhir.jp/fhir/core/)のサイトにJPCoreプロファイルの構造定義ファイルがあります。
+    - また、[https://std.jpfhir.jp/](https://std.jpfhir.jp/)のサイトに[診療情報提供書の文書プロファイル（IGpackage2023.4.27 snapshot形式: jp-ereferral-0.9.6-snap.tgz）](https://jpfhir.jp/fhir/eReferral/jp-ereferral-0.9.7-snap.tgz)があります。
+    - ですが、いずれも、FHIRプロファイルのようにJSONスキーマ形式では提供されていないようで、Goの場合、JPCoreプロファイルの検証を実施するのが難しそうです。
 - FHIRデータのパース
     - [Golang FHIR Models](https://github.com/samply/golang-fhir-models)を使って、パースをしています。
     - 上記は、内部では、[Go標準のJSONライブラリ(encoding/json)](https://pkg.go.dev/encoding/json)を使用します。
