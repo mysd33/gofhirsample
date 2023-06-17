@@ -8,6 +8,7 @@ import (
 	"github.com/xeipuuv/gojsonschema"
 )
 
+// FHIR文書のバリデーション、パースのサンプルアプリ
 // あえて分かりやすくするため１つのメソッドに手続き的に書いてあるので、本当に実装したい場合は保守性の高いモジュール化されたコード書くこと
 // 参考
 // https://github.com/samply/golang-fhir-models
