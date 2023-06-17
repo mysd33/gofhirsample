@@ -17,7 +17,7 @@
 - FHIRデータのパース
     - 前述の通り、Goの場合、[HL7のConfluenceのページ「Open Source Implementations」](https://confluence.hl7.org/display/FHIR/Open+Source+Implementations)で紹介されている、FHIRのリファレンス実装がありません。
     - ですが、検索すると、[Golang FHIR Models](https://github.com/samply/golang-fhir-models)というライブラリが出てきたので、それを使って、パースをしてみました。
-        - JavaのHAPI FHIRのような実装と比べると、バリデータ機能もないですし、コミュニティとしての信頼性も低いと考えています。
+        - JavaのHAPI FHIRのような実装と比べると、バリデータ機能もないですし、コミュニティとしての信頼性も低いため、このライブラリを正式に使うのは推奨できませんが、試してみました。
     - 上記は、内部では、[Go標準のJSONライブラリ(encoding/json)](https://pkg.go.dev/encoding/json)を使用します。
 
 ## シリアライズ
@@ -66,6 +66,8 @@ serializing-example.exe
 
 ## JSONシリアライズ実行結果の例
 - [処方情報のFHIR記述仕様書](https://jpfhir.jp/fhir/ePrescriptionData/igv1/)に従い、JSON文字列のほんの一部分が生成出来てるのが分かります。
+- 注意事項：[Golang FHIR Models](https://github.com/samply/golang-fhir-models)に、json.Marshalの振る舞いにより「<」や「>」が`\u003c` and `\u003e`になってしまう不具合があり、修正されておらず、自分で直接、生成コードを直さないといけない模様。やはり、このライブラリを正式に使うのは推奨できない。
+    - https://github.com/samply/golang-fhir-models/issues/13
 
 ```sh
 >serializing-example.exe
