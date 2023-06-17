@@ -65,4 +65,138 @@ serializing-example.exe
 ```
 
 ## JSONシリアライズ実行結果の例
-- TBD
+- [処方情報のFHIR記述仕様書](https://jpfhir.jp/fhir/ePrescriptionData/igv1/)に従い、JSON文字列のほんの一部分が生成出来てるのが分かります。
+
+```sh
+D:\git\gofhirsample\serializing>serializing-example.exe
+{
+    "meta": {
+        "lastUpdated": "2023-06-17T22:59:14+09:00",
+        "profile": [
+            "http://jpfhir.jp/fhir/ePrescription/StructureDefinition/JP_Bundle_ePrescriptionData"
+        ]
+    },
+    "type": "document",
+    "entry": [
+        {
+            "fullUrl": "urn:uuid:dcb3b52d-717b-4a1e-af7c-6dc86fb32d08",
+            "resource": {
+                "meta": {
+                    "lastUpdated": "2023-06-17T22:59:14+09:00",
+                    "profile": [
+                        "http://jpfhir.jp/fhir/eReferral/StructureDefinition/JP_Composition_ePrescriptionData"      
+                    ]
+                },
+                "text": {
+                    "status": "generated",
+                    "div": "\u003cdiv xmlns=\"http://www.w3.org/1999/xhtml\"\u003exxx\u003c/div\u003e"
+                },
+                "extension": [
+                    {
+                        "url": "http://hl7.org/fhir/StructureDefinition/composition-clinicaldocument-versionNumber",
+                        "valueString": "1.0"
+                    }
+                ],
+                "identifier": {
+                    "system": "http://jpfhir.jp/fhir/Common/IdSystem/resourceInstance-identifier",
+                    "value": "1311234567-2020-00123456"
+                },
+                "status": "final",
+                "type": {
+                    "coding": [
+                        {
+                            "system": "http://jpfhir.jp/fhir/Common/CodeSystem/doc-typecodes",
+                            "code": "57833-6",
+                            "display": "処方箋"
+                        }
+                    ]
+                },
+                "category": [
+                    {
+                        "coding": [
+                            {
+                                "system": "http://jpfhir.jp/fhir/ePrescription/CodeSystem/prescription-category",
+                                "code": "01",
+                                "display": "処方箋"
+                            }
+                        ]
+                    }
+                ],
+                "subject": {
+                    "reference": "urn:uuid:10ffd50b-ae08-45d2-b496-8a80e69539f8"
+                },
+                "date": "2023-06-17T22:59:14+09:00",
+                "author": [],
+                "title": "処方箋",
+                "resourceType": "Composition"
+            }
+        },
+        {
+            "fullUrl": "urn:uuid:10ffd50b-ae08-45d2-b496-8a80e69539f8",
+            "resource": {
+                "meta": {
+                    "lastUpdated": "2023-06-17T22:59:14+09:00",
+                    "profile": [
+                        "http://jpfhir.jp/fhir/ePrescription/StructureDefinition/JP_Patient_ePrescriptionData"
+                    ]
+                },
+                "text": {
+                    "status": "generated",
+                    "div": "\u003cdiv xmlns=\"http://www.w3.org/1999/xhtml\"\u003exxx\u003c/div\u003e"
+                },
+                "identifier": [
+                    {
+                        "system": "urn:oid:1.2.392.100495.20.3.51.11311234567",
+                        "value": "00000010"
+                    },
+                    {
+                        "system": "http:/jpfhir.jp/fhir/ccs/Idsysmem/JP_Insurance_member/00012345",
+                        "value": "00012345:あいう:１８７:05"
+                    }
+                ],
+                "name": [
+                    {
+                        "extension": [
+                            {
+                                "url": "http:// hl7.org/fhir/StructureDefinition/iso21090-EN-representation",
+                                "valueString": "IDE"
+                            }
+                        ],
+                        "use": "official",
+                        "text": "東京　太郎",
+                        "family": "東京",
+                        "given": [
+                            "太郎"
+                        ]
+                    },
+                    {
+                        "extension": [
+                            {
+                                "url": "http:// hl7.org/fhir/StructureDefinition/iso21090-EN-representation",
+                                "valueString": "SYL"
+                            }
+                        ],
+                        "use": "official",
+                        "text": "トウキョウ　タロウ",
+                        "family": "トウキョウ",
+                        "given": [
+                            "タロウ"
+                        ]
+                    }
+                ],
+                "gender": "male",
+                "birthDate": "2023-06-17T22:59:14+09:00",
+                "address": [
+                    {
+                        "text": "神奈川県横浜市港区１－２－３",
+                        "postalCode": "123-4567",
+                        "country": "JP"
+                    }
+                ],
+                "resourceType": "Patient"
+            }
+        }
+    ],
+    "resourceType": "Bundle"
+}
+```
