@@ -1,4 +1,4 @@
-module example
+module parsing-example
 
 go 1.20
 

@@ -1,6 +1,8 @@
 # Go言語での FHIRのサンプル
 
 - [診療情報提供書HL7FHIR記述仕様](https://std.jpfhir.jp/)に基づくサンプルデータ（Bundle-BundleReferralExample01.json）に対して、FHIRプロファイルでの検証、パースするサンプルプログラムです。
+- また、FHIRリソース(Bundle)として作成したオブジェクトを、FHIRのJSON文字列で出力（シリアライズ）するサンプルプログラムもあります。
+## プロファイルの検証（バリデーション）とパース
 - FHIRプロファイルでの検証
     - Goの場合、[HL7のConfluenceのページ「Open Source Implementations」](https://confluence.hl7.org/display/FHIR/Open+Source+Implementations)で紹介されている、FHIRのリファレンス実装がありません。
     - また、その他、検索しても、Goでは、JavaのHAPI等と違い、FHIRの構造定義ファイルでの検証を行うライブラリがなさそうです。
@@ -17,16 +19,36 @@
     - ですが、検索すると、[Golang FHIR Models](https://github.com/samply/golang-fhir-models)というライブラリが出てきたので、それを使って、パースをしてみました。
         - JavaのHAPI FHIRのような実装と比べると、バリデータ機能もないですし、コミュニティとしての信頼性も低いと考えています。
     - 上記は、内部では、[Go標準のJSONライブラリ(encoding/json)](https://pkg.go.dev/encoding/json)を使用します。
-- サンプルAPの使い方
+
+## シリアライズ
+- FHIRデータからJSONへのシリアライズ
+    - パース同様、[Golang FHIR Models](https://github.com/samply/golang-fhir-models)および、[Go標準のJSONライブラリ(encoding/json)](https://pkg.go.dev/encoding/json)を使って、シリアライズします。
+
+
+## 実行方法
+- 検証・パースするサンプルAPの使い方
     - ビルド後、生成されたexeファイルを実行してください。
 ```sh
+# parsingフォルダへ移動
+cd parsing
 # ビルド
 go build
 # 実行
-example.exe
+parsing-example.exe
+```
+- JSONシリアライズするサンプルAPの使い方
+    - ビルド後、生成されたexeファイルを実行してください。
+```sh
+# serializingフォルダへ移動
+cd serializing
+# ビルド
+go build
+# 実行
+serializing-example.exe
 ```
 
-* 実行結果の例
+## 検証・パースの実行結果の例
+
 ```sh
 >example.exe
 # JSONスキーマチェック結果
@@ -41,3 +63,6 @@ example.exe
 2023/06/10 23:16:52 患者氏名: 田中 太郎
 2023/06/10 23:16:52 患者カナ氏名: タナカ タロウ
 ```
+
+## JSONシリアライズ実行結果の例
+- TBD
