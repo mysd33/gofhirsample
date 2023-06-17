@@ -50,7 +50,7 @@ serializing-example.exe
 ## 検証・パースの実行結果の例
 
 ```sh
->example.exe
+>parsing-example.exe
 # JSONスキーマチェック結果
 2023/06/10 23:16:52 JSON Schema Check: ドキュメントは有効です
 # テストデータのパース結果
@@ -68,10 +68,10 @@ serializing-example.exe
 - [処方情報のFHIR記述仕様書](https://jpfhir.jp/fhir/ePrescriptionData/igv1/)に従い、JSON文字列のほんの一部分が生成出来てるのが分かります。
 
 ```sh
-D:\git\gofhirsample\serializing>serializing-example.exe
+>serializing-example.exe
 {
     "meta": {
-        "lastUpdated": "2023-06-17T22:59:14+09:00",
+        "lastUpdated": "2023-06-17T23:02:37+09:00",
         "profile": [
             "http://jpfhir.jp/fhir/ePrescription/StructureDefinition/JP_Bundle_ePrescriptionData"
         ]
@@ -79,12 +79,12 @@ D:\git\gofhirsample\serializing>serializing-example.exe
     "type": "document",
     "entry": [
         {
-            "fullUrl": "urn:uuid:dcb3b52d-717b-4a1e-af7c-6dc86fb32d08",
+            "fullUrl": "urn:uuid:3d1b2f4b-2d76-4de9-b80c-17449384c911",
             "resource": {
                 "meta": {
-                    "lastUpdated": "2023-06-17T22:59:14+09:00",
+                    "lastUpdated": "2023-06-17T23:02:37+09:00",
                     "profile": [
-                        "http://jpfhir.jp/fhir/eReferral/StructureDefinition/JP_Composition_ePrescriptionData"      
+                        "http://jpfhir.jp/fhir/eReferral/StructureDefinition/JP_Composition_ePrescriptionData"
                     ]
                 },
                 "text": {
@@ -123,19 +123,19 @@ D:\git\gofhirsample\serializing>serializing-example.exe
                     }
                 ],
                 "subject": {
-                    "reference": "urn:uuid:10ffd50b-ae08-45d2-b496-8a80e69539f8"
+                    "reference": "urn:uuid:2292d222-690c-4808-9999-669978622868"
                 },
-                "date": "2023-06-17T22:59:14+09:00",
+                "date": "2023-06-17T23:02:37+09:00",
                 "author": [],
                 "title": "処方箋",
                 "resourceType": "Composition"
             }
         },
         {
-            "fullUrl": "urn:uuid:10ffd50b-ae08-45d2-b496-8a80e69539f8",
+            "fullUrl": "urn:uuid:2292d222-690c-4808-9999-669978622868",
             "resource": {
                 "meta": {
-                    "lastUpdated": "2023-06-17T22:59:14+09:00",
+                    "lastUpdated": "2023-06-17T23:02:37+09:00",
                     "profile": [
                         "http://jpfhir.jp/fhir/ePrescription/StructureDefinition/JP_Patient_ePrescriptionData"
                     ]
@@ -158,7 +158,7 @@ D:\git\gofhirsample\serializing>serializing-example.exe
                     {
                         "extension": [
                             {
-                                "url": "http:// hl7.org/fhir/StructureDefinition/iso21090-EN-representation",
+                                "url": "http://hl7.org/fhir/StructureDefinition/iso21090-EN-representation",
                                 "valueString": "IDE"
                             }
                         ],
@@ -172,7 +172,7 @@ D:\git\gofhirsample\serializing>serializing-example.exe
                     {
                         "extension": [
                             {
-                                "url": "http:// hl7.org/fhir/StructureDefinition/iso21090-EN-representation",
+                                "url": "http://hl7.org/fhir/StructureDefinition/iso21090-EN-representation",
                                 "valueString": "SYL"
                             }
                         ],
@@ -185,7 +185,7 @@ D:\git\gofhirsample\serializing>serializing-example.exe
                     }
                 ],
                 "gender": "male",
-                "birthDate": "2023-06-17T22:59:14+09:00",
+                "birthDate": "2023-06-17T23:02:37+09:00",
                 "address": [
                     {
                         "text": "神奈川県横浜市港区１－２－３",

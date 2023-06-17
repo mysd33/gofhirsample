@@ -213,7 +213,7 @@ func createPatienEntry() (*fhir.BundleEntry, error) {
 			Given:  []string{kanjiGiven},
 			Extension: []fhir.Extension{
 				{
-					Url:         "http:// hl7.org/fhir/StructureDefinition/iso21090-EN-representation",
+					Url:         "http://hl7.org/fhir/StructureDefinition/iso21090-EN-representation",
 					ValueString: &ide,
 				},
 			},
@@ -226,7 +226,7 @@ func createPatienEntry() (*fhir.BundleEntry, error) {
 			Given:  []string{readingGiven},
 			Extension: []fhir.Extension{
 				{
-					Url:         "http:// hl7.org/fhir/StructureDefinition/iso21090-EN-representation",
+					Url:         "http://hl7.org/fhir/StructureDefinition/iso21090-EN-representation",
 					ValueString: &syl,
 				},
 			},
