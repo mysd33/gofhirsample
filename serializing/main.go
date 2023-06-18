@@ -10,24 +10,60 @@ import (
 	"github.com/samply/golang-fhir-models/fhir-models/fhir"
 )
 
-var now = time.Now().Format("2006-01-02T15:04:05Z07:00")
+// FHIR形式に変換対象の入力データを疑似した構造体
+type PrescriptionData struct {
+	PrescriptionNo   string //処方箋番号
+	PatientNo        string //患者番号
+	HokenjaNo        string // 保険者番号
+	HihokennshaKigo  string // 被保険者記号
+	HihokennshaBango string // 被保険者番号
+	HihokennshaEdaNo string // 被保険者枝番
+	KanjiLastName    string // 漢字姓
+	KanjiFirstName   string // 漢字名
+	KanaLastName     string // かな姓
+	KanaFirstName    string // かな名
+	GenderCode       int    // 性別コード(0:男性、1:女性、2:その他、3:不明）
+	Birthday         string // 誕生日
+	Zip              string // 郵便番号
+	Address          string // 住所
+	LastUpdated      string // 最終更新日
+}
 
 // FHIRリソースのオブジェクトをJSONシリアライズして、FHIR文書を作成するサンプル
 func main() {
+	// FHIR形式に変換対象の入力データ
+	input := PrescriptionData{
+		PrescriptionNo:   "1311234567-2020-00123456",
+		PatientNo:        "00000010",
+		HokenjaNo:        "00012345",
+		HihokennshaKigo:  "あいう",
+		HihokennshaBango: "１８７",
+		HihokennshaEdaNo: "05",
+		KanjiLastName:    "東京",
+		KanjiFirstName:   "太郎",
+		KanaLastName:     "トウキョウ",
+		KanaFirstName:    "タロウ",
+		GenderCode:       0,
+		Birthday:         "1920-02-11",
+		Zip:              "123-4567",
+		Address:          "神奈川県横浜市港区１－２－３",
+		LastUpdated:      time.Now().Format("2006-01-02T15:04:05Z07:00"),
+	}
+
 	// Patientの作成
-	patientEntry, err := createPatienEntry()
+	patientEntry, err := createPatienEntry(input)
 	if err != nil {
 		log.Fatal(err) //終了
 	}
 
 	// Compositionの作成
-	compositionEntry, err := createCompositionEntry(patientEntry)
+	compositionEntry, err := createCompositionEntry(input, patientEntry)
 	if err != nil {
 		log.Fatal(err) //終了
 	}
 
 	// Bundleの作成
-	bundle := createBundle()
+	bundle := createBundle(input)
 	bundle.Entry = append(bundle.Entry,
 		*compositionEntry,
 		*patientEntry)
@@ -44,24 +80,24 @@ func main() {
 }
 
 // Bundleリソースを作成
-func createBundle() *fhir.Bundle {
+func createBundle(prescriptionData PrescriptionData) *fhir.Bundle {
 	bundle := fhir.Bundle{}
 
 	// meta
 	bundle.Meta = &fhir.Meta{
 		Profile:     []string{"http://jpfhir.jp/fhir/ePrescription/StructureDefinition/JP_Bundle_ePrescriptionData"},
-		LastUpdated: &now,
+		LastUpdated: &prescriptionData.LastUpdated,
 	}
 	return &bundle
 }
 
 // CompositionリソースのEntryを作成
-func createCompositionEntry(patientEntry *fhir.BundleEntry) (*fhir.BundleEntry, error) {
+func createCompositionEntry(prescriptionData PrescriptionData, patientEntry *fhir.BundleEntry) (*fhir.BundleEntry, error) {
 	composition := fhir.Composition{}
 	// meta
 	composition.Meta = &fhir.Meta{
 		Profile:     []string{"http://jpfhir.jp/fhir/eReferral/StructureDefinition/JP_Composition_ePrescriptionData"},
-		LastUpdated: &now,
+		LastUpdated: &prescriptionData.LastUpdated,
 	}
 	// text
 	composition.Text = &fhir.Narrative{
@@ -78,7 +114,7 @@ func createCompositionEntry(patientEntry *fhir.BundleEntry) (*fhir.BundleEntry, 
 
 	// identifier
 	identifierSystem := "http://jpfhir.jp/fhir/Common/IdSystem/resourceInstance-identifier"
-	identifierValue := "1311234567-2020-00123456" // 処方箋番号入れる
+	identifierValue := prescriptionData.PrescriptionNo
 	composition.Identifier = &fhir.Identifier{
 		System: &identifierSystem,
 		Value:  &identifierValue,
@@ -126,7 +162,7 @@ func createCompositionEntry(patientEntry *fhir.BundleEntry) (*fhir.BundleEntry, 
 	// encounter
 
 	// date
-	composition.Date = now
+	composition.Date = prescriptionData.LastUpdated
 
 	// TODO: 項目追加
 	// author
@@ -156,13 +192,13 @@ func createCompositionEntry(patientEntry *fhir.BundleEntry) (*fhir.BundleEntry, 
 }
 
 // PatientリソースのEntryを作成する
-func createPatienEntry() (*fhir.BundleEntry, error) {
+func createPatienEntry(prescriptionData PrescriptionData) (*fhir.BundleEntry, error) {
 	patient := fhir.Patient{}
 
 	// meta
 	patient.Meta = &fhir.Meta{
 		Profile:     []string{"http://jpfhir.jp/fhir/ePrescription/StructureDefinition/JP_Patient_ePrescriptionData"},
-		LastUpdated: &now,
+		LastUpdated: &prescriptionData.LastUpdated,
 	}
 
 	// text
@@ -174,18 +210,14 @@ func createPatienEntry() (*fhir.BundleEntry, error) {
 
 	// identifier
 	identifierSystem := "urn:oid:1.2.392.100495.20.3.51.11311234567"
-	identifierValue := "00000010"
-	hokenjaNo := "00012345"
-	hihokennshaKigo := "あいう"
-	hihokennshaBango := "１８７"
-	hihokennshaEdaNo := "05"
-	insuranceSystem := fmt.Sprintf("http:/jpfhir.jp/fhir/ccs/Idsysmem/JP_Insurance_member/%s", hokenjaNo)
-	insuranceValue := fmt.Sprintf("%s:%s:%s:%s", hokenjaNo, hihokennshaKigo, hihokennshaBango, hihokennshaEdaNo)
+	insuranceSystem := fmt.Sprintf("http://jpfhir.jp/fhir/ccs/Idsysmem/JP_Insurance_member/%s", prescriptionData.HokenjaNo)
+	insuranceValue := fmt.Sprintf("%s:%s:%s:%s", prescriptionData.HokenjaNo, prescriptionData.HihokennshaKigo,
+		prescriptionData.HihokennshaBango, prescriptionData.HihokennshaEdaNo)
 	patient.Identifier = []fhir.Identifier{
 		// 患者番号
 		{
 			System: &identifierSystem,
-			Value:  &identifierValue,
+			Value:  &prescriptionData.PatientNo,
 		},
 		// 保険個人識別子
 		{
@@ -196,21 +228,17 @@ func createPatienEntry() (*fhir.BundleEntry, error) {
 
 	// name
 	useOfficial := fhir.NameUseOfficial
-	kanjiText := "東京　太郎"
-	kanjiFamily := "東京"
-	kanjiGiven := "太郎"
+	kanjiText := fmt.Sprintf("%s　%s", prescriptionData.KanjiLastName, prescriptionData.KanjiFirstName)
 	ide := "IDE"
-	readingText := "トウキョウ　タロウ"
-	readingFamily := "トウキョウ"
-	readingGiven := "タロウ"
+	readingText := fmt.Sprintf("%s　%s", prescriptionData.KanaLastName, prescriptionData.KanaFirstName)
 	syl := "SYL"
 	patient.Name = []fhir.HumanName{
 		// 漢字
 		{
 			Use:    &useOfficial,
 			Text:   &kanjiText,
-			Family: &kanjiFamily,
-			Given:  []string{kanjiGiven},
+			Family: &prescriptionData.KanjiLastName,
+			Given:  []string{prescriptionData.KanjiFirstName},
 			Extension: []fhir.Extension{
 				{
 					Url:         "http://hl7.org/fhir/StructureDefinition/iso21090-EN-representation",
@@ -222,8 +250,8 @@ func createPatienEntry() (*fhir.BundleEntry, error) {
 		{
 			Use:    &useOfficial,
 			Text:   &readingText,
-			Family: &readingFamily,
-			Given:  []string{readingGiven},
+			Family: &prescriptionData.KanaLastName,
+			Given:  []string{prescriptionData.KanaFirstName},
 			Extension: []fhir.Extension{
 				{
 					Url:         "http://hl7.org/fhir/StructureDefinition/iso21090-EN-representation",
@@ -234,20 +262,28 @@ func createPatienEntry() (*fhir.BundleEntry, error) {
 	}
 
 	// gender
-	male := fhir.AdministrativeGenderMale
-	patient.Gender = &male
+	var gender fhir.AdministrativeGender
+	switch prescriptionData.GenderCode {
+	case 0:
+		gender = fhir.AdministrativeGenderMale
+	case 1:
+		gender = fhir.AdministrativeGenderFemale
+	case 2:
+		gender = fhir.AdministrativeGenderOther
+	default:
+		gender = fhir.AdministrativeGenderUnknown
+	}
+	patient.Gender = &gender
 
 	// birthdate
-	patient.BirthDate = &now
+	patient.BirthDate = &prescriptionData.Birthday
 
 	// address
-	addressText := "神奈川県横浜市港区１－２－３"
-	postalCode := "123-4567"
 	country := "JP"
 	patient.Address = []fhir.Address{
 		{
-			Text:       &addressText,
-			PostalCode: &postalCode,
+			Text:       &prescriptionData.Address,
+			PostalCode: &prescriptionData.Zip,
 			Country:    &country,
 		},
 	}

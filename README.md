@@ -73,7 +73,7 @@ serializing-example.exe
 >serializing-example.exe
 {
     "meta": {
-        "lastUpdated": "2023-06-17T23:02:37+09:00",
+        "lastUpdated": "2023-06-18T17:20:40+09:00",
         "profile": [
             "http://jpfhir.jp/fhir/ePrescription/StructureDefinition/JP_Bundle_ePrescriptionData"
         ]
@@ -81,17 +81,17 @@ serializing-example.exe
     "type": "document",
     "entry": [
         {
-            "fullUrl": "urn:uuid:3d1b2f4b-2d76-4de9-b80c-17449384c911",
+            "fullUrl": "urn:uuid:1719e3a6-3473-4c2b-979c-b6792756dcb2",
             "resource": {
                 "meta": {
-                    "lastUpdated": "2023-06-17T23:02:37+09:00",
+                    "lastUpdated": "2023-06-18T17:20:40+09:00",
                     "profile": [
                         "http://jpfhir.jp/fhir/eReferral/StructureDefinition/JP_Composition_ePrescriptionData"
                     ]
                 },
                 "text": {
                     "status": "generated",
-                    "div": "\u003cdiv xmlns=\"http://www.w3.org/1999/xhtml\"\u003exxx\u003c/div\u003e"
+                    "div": "\u003cdiv xmlns=\"http://www.w3.org/1999/xhtml\"\u003exxx\u003c/div\u003e"        
                 },
                 "extension": [
                     {
@@ -125,19 +125,19 @@ serializing-example.exe
                     }
                 ],
                 "subject": {
-                    "reference": "urn:uuid:2292d222-690c-4808-9999-669978622868"
+                    "reference": "urn:uuid:9ab62a02-5d14-41f3-93bd-34ecd8772df9"
                 },
-                "date": "2023-06-17T23:02:37+09:00",
+                "date": "2023-06-18T17:20:40+09:00",
                 "author": [],
                 "title": "処方箋",
                 "resourceType": "Composition"
             }
         },
         {
-            "fullUrl": "urn:uuid:2292d222-690c-4808-9999-669978622868",
+            "fullUrl": "urn:uuid:9ab62a02-5d14-41f3-93bd-34ecd8772df9",
             "resource": {
                 "meta": {
-                    "lastUpdated": "2023-06-17T23:02:37+09:00",
+                    "lastUpdated": "2023-06-18T17:20:40+09:00",
                     "profile": [
                         "http://jpfhir.jp/fhir/ePrescription/StructureDefinition/JP_Patient_ePrescriptionData"
                     ]
@@ -152,7 +152,7 @@ serializing-example.exe
                         "value": "00000010"
                     },
                     {
-                        "system": "http:/jpfhir.jp/fhir/ccs/Idsysmem/JP_Insurance_member/00012345",
+                        "system": "http://jpfhir.jp/fhir/ccs/Idsysmem/JP_Insurance_member/00012345",
                         "value": "00012345:あいう:１８７:05"
                     }
                 ],
@@ -187,7 +187,7 @@ serializing-example.exe
                     }
                 ],
                 "gender": "male",
-                "birthDate": "2023-06-17T23:02:37+09:00",
+                "birthDate": "1920-02-11",
                 "address": [
                     {
                         "text": "神奈川県横浜市港区１－２－３",
