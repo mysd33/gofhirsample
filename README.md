@@ -23,8 +23,10 @@
     - パース同様、[Golang FHIR Models](https://github.com/samply/golang-fhir-models)および、[Go標準のJSONライブラリ(encoding/json)](https://pkg.go.dev/encoding/json)を使って、シリアライズします。
 
 ## 注意事項
-- なお、[Golang FHIR Models](https://github.com/samply/golang-fhir-models)はHAPIのようなリファレンス実装と比較しての信頼性、今後のR5等のFHIRバージョンアップ対応等の将来性が保証がされないことから、あまりおすすめできない実装手段かと感じています。 [別のリポジトリのgoのサンプルAP](https://github.com/mysd33/gofhirsample2)では、別の手段として、汎用的なJSONライブラリのみでFHIRのパースを実現できないかを検討していますので、こちらを参照ください。
-    - この場合、シリアライズは対応できません。
+- なお、[Golang FHIR Models](https://github.com/samply/golang-fhir-models)はHAPIのようなリファレンス実装と比較しての信頼性、今後のR5等のFHIRバージョンアップ対応等の将来性が保証がされないことから、あまりおすすめできない実装手段かと感じています。
+- また、[JSONシリアライズ実行結果の例](#jsonシリアライズ実行結果の例)に記載の通り、シリアライズ時に「<」、「>」等が自動エスケープされてしまう不具合も解消されていません。
+- パースについては、[別のリポジトリのgoのサンプルAP](https://github.com/mysd33/gofhirsample2)では、別の手段として、汎用的なJSONライブラリのみでFHIRのパースを実現できないかを検討していますので、こちらを参照ください。
+    - シリアライズは対応できません。
 
 ## 実行方法
 - 検証・パースするサンプルAPの使い方
