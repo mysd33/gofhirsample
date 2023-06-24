@@ -10,7 +10,7 @@
         - [HL7 FHIR:R4 Validating Resources](http://hl7.org/fhir/R4/validation.html)
 
 - 【未実施】JPCoreプロファイル、文書情報プロファイルでの検証
-    - JSONスキーマでの提供がされていないことから、上記と同様の理由で、 [JPCoreプロファイル](https://jpfhir.jp/fhir/core/)、[診療情報提供書の文書情報プロファイル（IGpackage2023.4.27 snapshot形式: jp-ereferral-0.9.6-snap.tgz）](https://jpfhir.jp/fhir/eReferral/jp-ereferral-0.9.7-snap.tgz)レベルの検証を実施するのが難しそうです。
+    - JSON Schemaでの提供がされていないことから、上記と同様の理由で、 [JPCoreプロファイル](https://jpfhir.jp/fhir/core/)、[https://std.jpfhir.jp/](https://std.jpfhir.jp/)にある[診療情報提供書の文書情報プロファイル（IGpackage2023.4.27 snapshot形式: jp-ereferral-0.9.6-snap.tgz）](https://jpfhir.jp/fhir/eReferral/jp-ereferral-0.9.7-snap.tgz)レベルの検証を実施するのが難しそうです。
 
 - FHIRデータのパース
     - 前述の通り、Goの場合、FHIRのリファレンス実装がありません。
@@ -18,13 +18,13 @@
         - JavaのHAPI FHIRのような実装と比べると、バリデータ機能もないですし、コミュニティとしての信頼性も低いため、このライブラリを正式に使うのは推奨できませんが、試してみました。
         - 上記は、内部では、[Go標準のJSONライブラリ(encoding/json)](https://pkg.go.dev/encoding/json)を使用します。
 
-## 注意事項
-- なお、[Golang FHIR Models](https://github.com/samply/golang-fhir-models)はHAPIのようなリファレンス実装と比較しての信頼性、今後のR5等のFHIRバージョンアップ対応等の将来性が保証がされないことから、あまりおすすめできない実装手段かと感じています。 [別のリポジトリのgoのサンプルAP](https://github.com/mysd33/gofhirsample2)では、別の手段として、汎用的なJSONライブラリのみでFHIRのパースを実現できないかを検討していますので、こちらを参照ください。
-
 ## シリアライズ
 - FHIRデータからJSONへのシリアライズ
     - パース同様、[Golang FHIR Models](https://github.com/samply/golang-fhir-models)および、[Go標準のJSONライブラリ(encoding/json)](https://pkg.go.dev/encoding/json)を使って、シリアライズします。
 
+## 注意事項
+- なお、[Golang FHIR Models](https://github.com/samply/golang-fhir-models)はHAPIのようなリファレンス実装と比較しての信頼性、今後のR5等のFHIRバージョンアップ対応等の将来性が保証がされないことから、あまりおすすめできない実装手段かと感じています。 [別のリポジトリのgoのサンプルAP](https://github.com/mysd33/gofhirsample2)では、別の手段として、汎用的なJSONライブラリのみでFHIRのパースを実現できないかを検討していますので、こちらを参照ください。
+    - この場合、シリアライズは対応できません。
 
 ## 実行方法
 - 検証・パースするサンプルAPの使い方
@@ -67,8 +67,10 @@ serializing-example.exe
 
 ## JSONシリアライズ実行結果の例
 - [処方情報のFHIR記述仕様書](https://jpfhir.jp/fhir/ePrescriptionData/igv1/)に従い、JSON文字列のほんの一部分が生成出来てるのが分かります。
-- 注意事項：[Golang FHIR Models](https://github.com/samply/golang-fhir-models)に、json.Marshalの振る舞いにより「<」や「>」が`\u003c` and `\u003e`になってしまう不具合があり、修正されておらず、自分で直接、生成コードを直さないといけない模様。やはり、このライブラリを正式に使うのは推奨できない。
-    - https://github.com/samply/golang-fhir-models/issues/13
+- 注意事項
+    - [Golang FHIR Models](https://github.com/samply/golang-fhir-models)に、json.Marshalの振る舞いにより「<」や「>」が`\u003c` and `\u003e`になってしまう不具合があり、修正されておらず、自分で直接、生成コードを直さないといけないようです。
+        - https://github.com/samply/golang-fhir-models/issues/13
+    - ですので、やはり、このライブラリを正式に使うのは推奨できないです。
 
 ```sh
 >serializing-example.exe
